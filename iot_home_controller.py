@@ -1,11 +1,9 @@
 import time
 import paho.mqtt.client as mqtt
 
-
 CAYENNE_USERNAME = "your-username"
 CAYENNE_PASSWORD = "your-password"
 CAYENNE_CLIENT_ID = "your-client-id"
-
 
 CONTROL_TOPIC = "v1/{}/things/{}/cmd/".format(CAYENNE_USERNAME, CAYENNE_CLIENT_ID)
 DATA_TOPIC = "v1/{}/things/{}/data/1".format(CAYENNE_USERNAME, CAYENNE_CLIENT_ID)
@@ -23,13 +21,9 @@ def on_message(client, userdata, message):
 client = mqtt.Client()
 client.username_pw_set(CAYENNE_USERNAME, password=CAYENNE_PASSWORD)
 client.on_message = on_message
-
 client.connect("mqtt.mydevices.com", 1883, 60)
 client.loop_start()
-
-
 client.subscribe(CONTROL_TOPIC + "#")
-
 try:
     print("IoT Home Controller Running...")
     while True:
